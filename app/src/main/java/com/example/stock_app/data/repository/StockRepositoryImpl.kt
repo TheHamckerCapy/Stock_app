@@ -2,10 +2,13 @@ package com.example.stock_app.data.repository
 
 import com.example.stock_app.data.csv.CSVParser
 import com.example.stock_app.data.local.StockDatabase
+import com.example.stock_app.data.mappers.toCompanyInfo
 import com.example.stock_app.data.mappers.toCompanyListing
 import com.example.stock_app.data.mappers.toCompanyListingEntity
 import com.example.stock_app.data.remote.StockApi
+import com.example.stock_app.domain.model.CompanyInfo
 import com.example.stock_app.domain.model.CompanyListings
+import com.example.stock_app.domain.model.IntradayInfo
 import com.example.stock_app.domain.repository.StockRepository
 import com.example.stock_app.utils.Resource
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +23,8 @@ import javax.inject.Singleton
 class StockRepositoryImpl @Inject constructor(
     val api: StockApi,
     val db: StockDatabase,
-    val companyListingParser: CSVParser<CompanyListings>
+    val companyListingParser: CSVParser<CompanyListings>,
+    val intradatListingParser: CSVParser<IntradayInfo>
 ) : StockRepository {
 
     private val dao = db.dao
@@ -35,8 +39,8 @@ class StockRepositoryImpl @Inject constructor(
             val localListing = dao.searchCompanyListings(query)
             emit(
                 Resource.Success(
-                data = localListing.map { it.toCompanyListing() }
-            ))
+                    data = localListing.map { it.toCompanyListing() }
+                ))
 
             val isDbEmpty = localListing.isEmpty() && query.isBlank()
             val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
@@ -66,8 +70,8 @@ class StockRepositoryImpl @Inject constructor(
                 )
                 emit(
                     Resource.Success(
-                    data = dao.searchCompanyListings("").map { it.toCompanyListing() }
-                ))
+                        data = dao.searchCompanyListings("").map { it.toCompanyListing() }
+                    ))
                 emit(Resource.Loading(false))
 
 
@@ -75,4 +79,30 @@ class StockRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getIntradayInfo(symbol: String): Resource<List<IntradayInfo>> {
+        return try {
+            val response = api.getIntraday(symbol)
+            val result = intradatListingParser.parser(response.byteStream())
+            Resource.Success(result)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load intraday info")
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load intraday info")
+        }
+    }
+
+    override suspend fun getCompanyInfo(symbol: String): Resource<CompanyInfo> {
+        return try {
+            val response = api.getCompanyOverview(symbol)
+            Resource.Success(response.toCompanyInfo())
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load Company info")
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load Company info")
+        }
+    }
 }
