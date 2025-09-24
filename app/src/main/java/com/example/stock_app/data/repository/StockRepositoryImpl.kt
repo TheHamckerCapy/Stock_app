@@ -1,5 +1,6 @@
 package com.example.stock_app.data.repository
 
+import android.util.Log
 import com.example.stock_app.data.csv.CSVParser
 import com.example.stock_app.data.local.StockDatabase
 import com.example.stock_app.data.mappers.toCompanyInfo
@@ -96,6 +97,7 @@ class StockRepositoryImpl @Inject constructor(
     override suspend fun getCompanyInfo(symbol: String): Resource<CompanyInfo> {
         return try {
             val response = api.getCompanyOverview(symbol)
+            Log.d("CompanyInfo", "Response: $response")
             Resource.Success(response.toCompanyInfo())
         } catch (e: IOException) {
             e.printStackTrace()

@@ -18,8 +18,7 @@ interface StockApi {
     @GET("/query?function=OVERVIEW")
     suspend fun getCompanyOverview(
         @Query("symbol") symbol: String,
-        @Query("apikey") apiKey: String= API_KEY
-
+        @Query("apikey") apiKey: String = API_KEY
     ): CompanyInfoDto
 
     @GET("/query?function=TIME_SERIES_INTRADAY&interval=60min&datatype=csv")

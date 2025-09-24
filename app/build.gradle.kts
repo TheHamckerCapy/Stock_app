@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 
+
 }
 
 android {
@@ -79,12 +80,17 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
+    implementation ("com.squareup.moshi:moshi:1.15.2")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     val room_version = "2.7.2"
 
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
+
+
+
 
 
 }
