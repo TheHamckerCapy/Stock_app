@@ -4,10 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterEnd
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
@@ -38,7 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.stock_app.R
+import com.example.stock_app.data.mappers.toMarketCap
 import com.example.stock_app.ui.theme.DarkBlue
+import com.example.stock_app.utils.SimpleExpandableField
 import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
@@ -95,7 +95,7 @@ fun CompanyInfoScreen(
                     }
                 }
 
-                item{Spacer(modifier = Modifier.height(8.dp))}
+                item { Spacer(modifier = Modifier.height(8.dp)) }
 
                 item {
                     Box(
@@ -133,19 +133,19 @@ fun CompanyInfoScreen(
                         }
                     }
                 }
-                item {Spacer(modifier = Modifier.height(12.dp))  }
+                item { Spacer(modifier = Modifier.height(12.dp)) }
 
                 item { HorizontalDivider(modifier = Modifier.fillMaxWidth()) }
 
                 if (state.stockInfos.isNotEmpty()) {
-                    item{ Spacer(modifier = Modifier.height(8.dp)) }
-                    item{ Text(text = "Market Summary") }
-                    item{ Spacer(modifier = Modifier.height(8.dp)) }
-                    item{
+                    item { Spacer(modifier = Modifier.height(8.dp)) }
+                    item { Text(text = "Market Summary") }
+                    item { Spacer(modifier = Modifier.height(8.dp)) }
+                    item {
                         Box(
                             modifier = Modifier.fillMaxWidth(),
                             contentAlignment = Center
-                        ){
+                        ) {
                             StockChart(
                                 infos = state.stockInfos,
                                 modifier = Modifier
@@ -159,10 +159,97 @@ fun CompanyInfoScreen(
                 }
                 item { Spacer(modifier = Modifier.height(8.dp)) }
                 item {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            Text(
+                                text = "Key Metrics",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Column {
+                                    Text(
+                                        text = "52W Low",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "$ ${company.weekLow}",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        fontWeight = FontWeight.SemiBold,
+
+                                    )
+                                }
+                                Column {
+                                    Text(
+                                        text = "52W High",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "$ ${company.weekHigh}",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.padding(end = 48.dp)
+                                    )
+                                }
+
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Column {
+                                    Text(
+                                        text = "P/E Ratio",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = company.peRatio,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                }
+                                Column {
+                                    Text(
+                                        text = "Market Cap",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = company.marketCap.toMarketCap(),
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                }
+
+                            }
+                        }
+                    }
+                }
+                item { Spacer(modifier = Modifier.height(8.dp)) }
+                item {
                     Text(
+                        text = "About Company",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+                item {
+                    SimpleExpandableField(
                         text = company.description,
-                        fontSize = 12.sp,
-                        modifier = Modifier.fillMaxWidth(),
+                        maximumLines = 3
                     )
                 }
             }

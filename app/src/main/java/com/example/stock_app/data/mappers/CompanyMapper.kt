@@ -29,6 +29,12 @@ fun CompanyInfoDto.toCompanyInfo(): CompanyInfo{
         description = description?: "",
         country = country?: "",
         industry = industry?: "",
-        sector = sector?: ""
+        sector = sector?: "",
+        exchange = exchange?: "",
+        weekLow = weekLow?: "",
+        weekHigh = weekHigh?: "",
+        marketCap = marketCap?: "",
+        peRatio=peRatio?: ""
+
     )
 }

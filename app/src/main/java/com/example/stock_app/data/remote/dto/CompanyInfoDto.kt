@@ -13,4 +13,9 @@ data class CompanyInfoDto(
   @Json(name = "Country")val country: String?,
   @Json(name = "Industry") val industry: String?,
   @Json(name = "Sector")val sector: String?,
+  @Json(name = "Exchange")val exchange: String?,
+  @Json(name = "52WeekLow")val weekLow : String?,
+  @Json(name = "52WeekHigh")val weekHigh: String?,
+  @Json(name = "MarketCapitalization")val marketCap: String?,
+  @Json(name =  "PERatio") val peRatio: String?
 )

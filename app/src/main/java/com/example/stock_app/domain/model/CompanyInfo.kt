@@ -8,4 +8,9 @@ data class CompanyInfo(
     val country: String,
     val industry: String,
     val sector: String,
+    val exchange: String,
+    val weekLow: String,
+    val weekHigh: String,
+    val marketCap: String,
+    val peRatio: String
 )
