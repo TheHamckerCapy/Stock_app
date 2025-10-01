@@ -11,6 +11,7 @@ import com.example.stock_app.domain.repository.StockRepository
 import com.example.stock_app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,6 +71,37 @@ class CompanyInfoViewModel @Inject constructor(
                 else -> Unit
             }
             state = state.copy(isLoading = false)
+        }
+
+
+    }
+    fun onEvent(event: CompanyInfoEvent){
+        when(event){
+            is CompanyInfoEvent.AddToWatchList -> {
+                viewModelScope.launch {
+                    val symbol = savedStateHandle.get<String>("symbol") ?: return@launch
+                    repository.addStockToWatchList(
+                        watchlistId = event.watchlist.watchListId,
+                        symbol = symbol
+                    )
+                    state=state.copy(isSheetShown = false)
+                }
+            }
+            CompanyInfoEvent.DismissWatchListSheet -> {
+                state=state.copy(isSheetShown = false)
+            }
+            CompanyInfoEvent.ShowWatchListSheet -> {
+                viewModelScope.launch {
+                    repository.getAllWatchList()
+                        .firstOrNull()?.let {watchlists ->
+                            state = state.copy(
+                                watchlists = watchlists,
+                                isSheetShown = true
+                            )
+                        }
+                }
+
+            }
         }
     }
 }

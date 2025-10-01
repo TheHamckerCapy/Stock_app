@@ -1,5 +1,7 @@
 package com.example.stock_app.domain.repository
 
+import com.example.stock_app.data.local.WatchListEntity
+import com.example.stock_app.data.local.WatchlistWithStocks
 import com.example.stock_app.domain.model.CompanyInfo
 import com.example.stock_app.domain.model.CompanyListings
 import com.example.stock_app.domain.model.IntradayInfo
@@ -20,4 +22,16 @@ interface StockRepository {
     suspend fun getCompanyInfo(
         symbol: String
     ): Resource<CompanyInfo>
+
+    fun getAllWatchList(): Flow<List<WatchListEntity>>
+
+    fun getWatchListwithStocks(id:Int): Flow<WatchlistWithStocks>
+
+    fun getAllWatchlistsWithStocks(): Flow<List<WatchlistWithStocks>>
+
+    suspend fun insertWatchList(name: String)
+
+    suspend fun addStockToWatchList(symbol: String, watchlistId: Int)
+
+    suspend fun deleteWatchList(symbol: String, watchlistId: Int)
 }

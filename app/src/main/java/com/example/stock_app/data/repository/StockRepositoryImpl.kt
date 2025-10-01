@@ -3,6 +3,9 @@ package com.example.stock_app.data.repository
 import android.util.Log
 import com.example.stock_app.data.csv.CSVParser
 import com.example.stock_app.data.local.StockDatabase
+import com.example.stock_app.data.local.WatchListEntity
+import com.example.stock_app.data.local.WatchlistStockCrossRef
+import com.example.stock_app.data.local.WatchlistWithStocks
 import com.example.stock_app.data.mappers.toCompanyInfo
 import com.example.stock_app.data.mappers.toCompanyListing
 import com.example.stock_app.data.mappers.toCompanyListingEntity
@@ -29,6 +32,7 @@ class StockRepositoryImpl @Inject constructor(
 ) : StockRepository {
 
     private val dao = db.dao
+    private val watchListdao = db.watchlistDao
 
     override suspend fun getCompanyListing(
         fetchFromRemote: Boolean,
@@ -106,5 +110,30 @@ class StockRepositoryImpl @Inject constructor(
             e.printStackTrace()
             Resource.Error(message = "Couldn't load Company info")
         }
+    }
+
+    override fun getAllWatchList(): Flow<List<WatchListEntity>> {
+       return watchListdao.getAllWatchlists()
+    }
+
+    override fun getWatchListwithStocks(id: Int): Flow<WatchlistWithStocks> {
+        return watchListdao.getWatchlistWithStocks(id)
+    }
+
+    override suspend fun insertWatchList(name: String) {
+        watchListdao.insertWatchList(
+            watchlist = WatchListEntity(name=name)
+        )
+    }
+
+    override suspend fun addStockToWatchList(symbol: String, watchlistId: Int) {
+        watchListdao.addStockToWatchList(crossRef = WatchlistStockCrossRef(watchlistId,symbol))
+    }
+
+    override suspend fun deleteWatchList(symbol: String, watchlistId: Int) {
+        watchListdao.deleteWatchList(crossRef = WatchlistStockCrossRef(watchlistId,symbol))
+    }
+    override fun getAllWatchlistsWithStocks(): Flow<List<WatchlistWithStocks>> {
+        return watchListdao.getAllWatchlistsWithStocks()
     }
 }
