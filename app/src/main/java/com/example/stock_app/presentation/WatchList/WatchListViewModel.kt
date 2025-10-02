@@ -55,6 +55,15 @@ class WatchListViewModel @Inject constructor(
                 val currentId = state.isExpandedId
                 state = state.copy(isExpandedId = if (currentId== event.watchlist) null else event.watchlist)
             }
+            is WatchListEvents.WatchListsDelete -> {
+                viewModelScope.launch {
+                    repository.deleteWatchLists(
+                        event.watchList
+
+                    )
+                    state = state.copy(watchListToDelete = null)
+                }
+            }
         }
     }
 

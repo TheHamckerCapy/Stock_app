@@ -34,4 +34,6 @@ interface StockRepository {
     suspend fun addStockToWatchList(symbol: String, watchlistId: Int)
 
     suspend fun deleteWatchList(symbol: String, watchlistId: Int)
+
+    suspend fun deleteWatchLists(watchListEntity: WatchListEntity)
 }

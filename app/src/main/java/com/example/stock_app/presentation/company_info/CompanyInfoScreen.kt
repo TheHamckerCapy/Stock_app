@@ -14,11 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,18 +47,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.stock_app.R
 import com.example.stock_app.data.mappers.toMarketCap
-import com.example.stock_app.presentation.destinations.WatchlistScreenDestination
 import com.example.stock_app.ui.theme.DarkBlue
 import com.example.stock_app.utils.SimpleExpandableField
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination
 fun CompanyInfoScreen(
     symbol: String,
-    navigator: DestinationsNavigator,
     viewModel: CompanyInfoViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
@@ -72,9 +68,7 @@ fun CompanyInfoScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             state.company?.let { company ->
-                item {
-                    Spacer(modifier = Modifier.height(20.dp))
-                }
+
                 item {
                     Box(
                         modifier = Modifier
@@ -96,15 +90,6 @@ fun CompanyInfoScreen(
                                 overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.fillMaxWidth()
                             )
-                            IconButton(
-                                onClick = {viewModel.onEvent(CompanyInfoEvent.ShowWatchListSheet)}
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = null
-                                )
-                            }
-
 
                         }
                         Image(
@@ -162,7 +147,22 @@ fun CompanyInfoScreen(
 
                 if (state.stockInfos.isNotEmpty()) {
                     item { Spacer(modifier = Modifier.height(8.dp)) }
-                    item { Text(text = "Market Summary") }
+                    item { Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "Market Summary")
+                        Spacer(modifier=Modifier.weight(1f))
+                        IconButton(
+                         onClick = { viewModel.onEvent(CompanyInfoEvent.ShowWatchListSheet)}
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Bookmark,
+                                contentDescription = null
+                            )
+                        }
+                    } }
                     item { Spacer(modifier = Modifier.height(8.dp)) }
                     item {
                         Box(
@@ -188,7 +188,9 @@ fun CompanyInfoScreen(
 
                     ) {
                         Column(
-                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             Text(
@@ -211,7 +213,7 @@ fun CompanyInfoScreen(
                                         style = MaterialTheme.typography.bodyLarge,
                                         fontWeight = FontWeight.SemiBold,
 
-                                    )
+                                        )
                                 }
                                 Column {
                                     Text(
@@ -278,13 +280,14 @@ fun CompanyInfoScreen(
             }
         }
     }
-    if(state.isSheetShown){
+    if (state.isSheetShown) {
         ModalBottomSheet(
             onDismissRequest = { viewModel.onEvent(CompanyInfoEvent.DismissWatchListSheet) },
             sheetState = sheetState
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(10.dp)
             ) {
                 Text(
@@ -294,7 +297,7 @@ fun CompanyInfoScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 LazyColumn {
-                    items(state.watchlists){watchlist->
+                    items(state.watchlists) { watchlist ->
                         Text(
                             text = watchlist.name,
                             modifier = Modifier

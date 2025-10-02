@@ -32,4 +32,7 @@ interface WatchListDao {
     @Transaction
     @Query("SELECT * FROM watchlists")
     fun getAllWatchlistsWithStocks(): Flow<List<WatchlistWithStocks>>
+
+    @Delete
+    suspend fun deleteWatchLists(watchlist: WatchListEntity)
 }

@@ -4,6 +4,7 @@ package com.example.stock_app.data.remote
 import com.example.stock_app.Constant.api_key
 import com.example.stock_app.data.remote.dto.CompanyInfoDto
 import com.example.stock_app.data.remote.dto.CompanyIntradayDto
+import com.example.stock_app.data.remote.dto.ToppersDto
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -27,6 +28,10 @@ interface StockApi {
         @Query("apikey") apiKey: String= API_KEY
     ): ResponseBody
 
+    @GET("/query?function=TOP_GAINERS_LOSERS")
+    suspend fun getGainersLosers(
+        @Query("apikey") apiKey: String = API_KEY
+    ): ToppersDto
 
     companion object{
         val API_KEY = api_key

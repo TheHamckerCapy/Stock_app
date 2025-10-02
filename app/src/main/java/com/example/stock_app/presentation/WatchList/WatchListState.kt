@@ -8,5 +8,6 @@ data class WatchListState (
     val isLoading: Boolean = false,
     val isAddWatchListDiaglogShown: Boolean = false,
     val newWatchListName: String = "",
-    val isExpandedId: Int? = null
+    val isExpandedId: Int? = null,
+    val watchListToDelete: WatchListEntity? = null
 )

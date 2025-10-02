@@ -136,4 +136,8 @@ class StockRepositoryImpl @Inject constructor(
     override fun getAllWatchlistsWithStocks(): Flow<List<WatchlistWithStocks>> {
         return watchListdao.getAllWatchlistsWithStocks()
     }
+
+    override suspend fun deleteWatchLists(watchListEntity: WatchListEntity) {
+        watchListdao.deleteWatchLists(watchListEntity)
+    }
 }

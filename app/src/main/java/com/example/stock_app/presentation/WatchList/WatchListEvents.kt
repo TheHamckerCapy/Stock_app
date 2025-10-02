@@ -10,4 +10,5 @@ sealed class WatchListEvents{
     object DismissAddWatchlistDialog : WatchListEvents()
     data class OnNewWatchlistNameChange(val name: String) : WatchListEvents()
     data class ToggleWatchList(val watchlist: Int): WatchListEvents()
+    data class WatchListsDelete(val watchList: WatchListEntity): WatchListEvents()
 }

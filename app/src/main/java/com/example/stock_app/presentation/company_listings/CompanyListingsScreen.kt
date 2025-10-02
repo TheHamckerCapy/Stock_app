@@ -1,6 +1,5 @@
 package com.example.stock_app.presentation.company_listings
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -23,30 +21,21 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.stock_app.presentation.destinations.CompanyInfoScreenDestination
-import com.example.stock_app.presentation.destinations.WatchlistScreenDestination
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination(start = true)
 fun CompanyListingScreen(
-    navigator: DestinationsNavigator,
+    navController: NavController,
     viewModel: CompanyListingsViewModel = hiltViewModel()
 ) {
     val isRefreshing = viewModel.state.isRefreshing
     val swipeRefreshState = rememberPullToRefreshState()
     val state = viewModel.state
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-
-        ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         OutlinedTextField(
             value = state.searchQuery,
             onValueChange = {
@@ -55,7 +44,7 @@ fun CompanyListingScreen(
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp,end = 10.dp, top = 40.dp)
+                .padding(start = 10.dp,end = 10.dp, bottom = 10.dp)
                 ,
             maxLines = 1,
             singleLine = true,
@@ -88,9 +77,8 @@ fun CompanyListingScreen(
                             .fillMaxWidth()
                             .padding(16.dp),
                         onClick = {
-                            navigator.navigate(
-                                CompanyInfoScreenDestination(symbol = company.symbol)
-                            )
+                            navController.navigate(route = "/infoScreen/${company.symbol}")
+
                         }
                     )
                     if (i < state.companies.size) {
@@ -99,18 +87,6 @@ fun CompanyListingScreen(
 
                 }
 
-            }
-
-            Box(modifier = Modifier.fillMaxWidth()){
-
-                IconButton(
-                    onClick ={navigator.navigate(WatchlistScreenDestination)}
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = null
-                    )
-                }
             }
 
         }
