@@ -68,12 +68,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
 
 
-
-
-
-    implementation("io.github.raamcosta.compose-destinations:core:1.10.2")
-    ksp("io.github.raamcosta.compose-destinations:ksp:1.10.2")
-
     implementation("com.google.dagger:hilt-android:2.56.2")
     ksp("com.google.dagger:hilt-android-compiler:2.56.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
@@ -89,6 +83,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.compose.material:material-icons-extended")
+
 
 
 

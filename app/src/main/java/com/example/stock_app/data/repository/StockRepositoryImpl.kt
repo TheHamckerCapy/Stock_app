@@ -9,10 +9,12 @@ import com.example.stock_app.data.local.WatchlistWithStocks
 import com.example.stock_app.data.mappers.toCompanyInfo
 import com.example.stock_app.data.mappers.toCompanyListing
 import com.example.stock_app.data.mappers.toCompanyListingEntity
+import com.example.stock_app.data.mappers.toTopMovers
 import com.example.stock_app.data.remote.StockApi
 import com.example.stock_app.domain.model.CompanyInfo
 import com.example.stock_app.domain.model.CompanyListings
 import com.example.stock_app.domain.model.IntradayInfo
+import com.example.stock_app.domain.model.TopMovers
 import com.example.stock_app.domain.repository.StockRepository
 import com.example.stock_app.utils.Resource
 import kotlinx.coroutines.flow.Flow
@@ -139,5 +141,19 @@ class StockRepositoryImpl @Inject constructor(
 
     override suspend fun deleteWatchLists(watchListEntity: WatchListEntity) {
         watchListdao.deleteWatchLists(watchListEntity)
+    }
+
+    override suspend fun getGainersLosers(): Resource<TopMovers> {
+        return try {
+            val result = api.getGainersLosers()
+            Log.d("Movers Response", result.toString())
+            Resource.Success(result.toTopMovers())
+        }catch (e: IOException){
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load data")
+        }catch (e: HttpException){
+            e.printStackTrace()
+            Resource.Error(message = "Http error")
+        }
     }
 }

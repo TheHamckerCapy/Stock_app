@@ -5,6 +5,7 @@ import com.example.stock_app.data.local.WatchlistWithStocks
 import com.example.stock_app.domain.model.CompanyInfo
 import com.example.stock_app.domain.model.CompanyListings
 import com.example.stock_app.domain.model.IntradayInfo
+import com.example.stock_app.domain.model.TopMovers
 import com.example.stock_app.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -36,4 +37,6 @@ interface StockRepository {
     suspend fun deleteWatchList(symbol: String, watchlistId: Int)
 
     suspend fun deleteWatchLists(watchListEntity: WatchListEntity)
+
+    suspend fun getGainersLosers(): Resource<TopMovers>
 }

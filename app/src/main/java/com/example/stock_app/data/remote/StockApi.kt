@@ -3,7 +3,6 @@ package com.example.stock_app.data.remote
 
 import com.example.stock_app.Constant.api_key
 import com.example.stock_app.data.remote.dto.CompanyInfoDto
-import com.example.stock_app.data.remote.dto.CompanyIntradayDto
 import com.example.stock_app.data.remote.dto.ToppersDto
 import okhttp3.ResponseBody
 import retrofit2.http.GET

@@ -1,7 +1,5 @@
 package com.example.stock_app.data.csv
 
-import android.icu.util.LocaleData
-import androidx.compose.ui.text.intl.Locale
 import com.example.stock_app.data.mappers.toIntradayInfo
 import com.example.stock_app.data.remote.dto.CompanyIntradayDto
 import com.example.stock_app.domain.model.IntradayInfo
@@ -11,7 +9,6 @@ import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 

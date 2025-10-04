@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,6 +44,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.stock_app.R
@@ -111,11 +113,12 @@ fun CompanyInfoScreen(
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(180.dp)
+                            horizontalArrangement = Arrangement.spacedBy(200.dp)
                         ) {
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
-                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+
                             ) {
                                 Text(
                                     text = company.country,
@@ -128,12 +131,15 @@ fun CompanyInfoScreen(
 
                             Surface(
                                 shape = RoundedCornerShape(25.dp),
-                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                                modifier = Modifier.widthIn(max=140.dp)
                             ) {
                                 Text(
                                     text = company.industry,
                                     fontSize = 8.sp,
-                                    modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                    modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp),
+                                    overflow = TextOverflow.Ellipsis,
+                                    maxLines = 1
                                 )
 
                             }

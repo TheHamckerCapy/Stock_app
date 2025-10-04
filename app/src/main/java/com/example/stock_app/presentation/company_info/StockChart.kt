@@ -1,6 +1,5 @@
 package com.example.stock_app.presentation.company_info
 
-import android.drm.DrmStore.RightsStatus
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
