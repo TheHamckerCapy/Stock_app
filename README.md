@@ -60,7 +60,7 @@ To build and run this project, you will need to get a free API key from [Alpha V
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
+    git clone https://github.com/TheHamckerCapy/Stock_app.git
     ```
 2.  Open the project in Android Studio.
 3.  **Add your API key**: Create a new file in `app/src/main/java/com/example/stock_app/Constants.kt`.
