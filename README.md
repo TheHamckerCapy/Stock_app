@@ -1,11 +1,12 @@
-<img width=" 1280" height="640" alt="mockuper" src="https://github.com/user-attachments/assets/c85c9571-21f3-4525-a39f-46ce016738ce" />
------
+<img width="1000" alt="mockuper" src="https://github.com/user-attachments/assets/c85c9571-21f3-4525-a39f-46ce016738ce" />
+
 
 # 📈 Stock Market App
 
 A sample stock market application for Android, built entirely with modern technologies like kotlin,Jetpack Compose, Coroutines, Flow, and Hilt. This project serves as a showcase of modern Android development practices, including a clean architecture and a reactive UI.
 
------
+---
+
 
 ## ✨ Features
 
@@ -21,6 +22,8 @@ A sample stock market application for Android, built entirely with modern techno
   * **Modern UI**: Built with Material 3, featuring a floating capsule-shaped navigation bar and dynamic, scroll-aware top app bars.
 
 -----
+## 💻Architecture 
+ <img width="1681" height="690" alt="Stock_app_Architecture" src="https://github.com/user-attachments/assets/a0135335-f965-4678-abfb-7816b48bb69b" />
 
 ## 📸 Screenshots
 <img width="300" alt="Screenshot3" src="https://github.com/user-attachments/assets/42ac3c8e-f24f-4d4f-8aed-5a7f7040eb33" />
