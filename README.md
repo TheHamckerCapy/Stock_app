@@ -25,11 +25,15 @@ A sample stock market application for Android, built entirely with modern techno
 ## 💻Architecture 
  <img width="1681" height="690" alt="Stock_app_Architecture" src="https://github.com/user-attachments/assets/a0135335-f965-4678-abfb-7816b48bb69b" />
 
-## 📸 Screenshots
+## 📸 Screenshots & Demo
 <img width="300" alt="Screenshot3" src="https://github.com/user-attachments/assets/42ac3c8e-f24f-4d4f-8aed-5a7f7040eb33" />
 <img width="300" alt="Screenshot2" src="https://github.com/user-attachments/assets/46030251-1c64-441e-beaa-c9cd2201057f" />
 <img width="300" alt="Screenshot4" src="https://github.com/user-attachments/assets/0856b4b9-5d4f-40ef-ac2b-9f4411fb8c61" />
 <img width="300" alt="Screenshot1" src="https://github.com/user-attachments/assets/ccfe8f3a-472a-4081-a465-8f82a7c5c434" />
+
+
+https://github.com/user-attachments/assets/29007e53-1751-40e7-abbf-555c79deac07
+
 
 -----
 
@@ -74,3 +78,6 @@ To build and run this project, you will need to get a free API key from [Alpha V
 5.  Build and run the app.
 
 -----
+## Project Structure 
+<img width="463" height="902" alt="image" src="https://github.com/user-attachments/assets/a205ed1b-ceda-4db5-ac5c-69cecfebe044" />
+
