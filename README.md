@@ -1,7 +1,7 @@
 <img width="1000" alt="mockuper" src="https://github.com/user-attachments/assets/c85c9571-21f3-4525-a39f-46ce016738ce" />
 
 
-# 📈 Stock Market App
+# 📈 Stox Pulse App
 
 A sample stock market application for Android, built entirely with modern technologies like kotlin,Jetpack Compose, Coroutines, Flow, and Hilt. This project serves as a showcase of modern Android development practices, including a clean architecture and a reactive UI.
 
